@@ -1,0 +1,13 @@
+{% set component = component | default('accordion') %}
+{% set webcomponent = webcomponent | default(false) %}
+{% set classlist = { main: 'accordion' } | merge(classlist | default({})) %}
+{% set tagstart = webcomponent ?: ('ul is="' ~ component ~ '"') %}
+{% set tagend = webcomponent ?: 'ul' %}
+
+<{{ tagstart }} class="{{ classlist.main }}{{ class }}" id="{{ id }}">
+  {% block content %}
+    {% for item in items %}
+      {% include 'accordion-item.twig' with { index: loop.index } %}
+    {% endfor %}    
+  {% endblock %}    
+</{{ tagend }}>

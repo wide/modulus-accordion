@@ -1,0 +1,35 @@
+$-class-main:      'accordion' !default;
+$-class-title:     '_title' !default;
+$-class-content:   '_content' !default;
+
+$-border: 1px solid black;
+$-title-font-weight: bold;
+$-title-align: left;
+$-title-padding: 2rem 3rem;
+$-content-padding: 1rem 3rem 3rem 3rem;
+
+
+.#{$-class-main} {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: $-border;
+  
+    li {
+      border-bottom: $-border;
+    }
+  
+    &#{$-class-title} {
+      width: 100%;
+      font-weight: $-title-font-weight;
+      text-align: $-title-align;
+      background: none;
+      border: none;
+      padding: $-title-padding;
+    }
+  
+    &#{$-class-content} {
+      padding: $-content-padding;
+    }
+  }
+  

@@ -1,0 +1,24 @@
+{% set classlist = { 
+  title:    'accordion_title',
+  body:     'accordion_body',
+  content:  'accordion_content',
+} | merge(classlist | default({})) %}
+
+<li>
+  <button class="{{ classlist.title }}" aria-expanded="{{ item.show ? 'true' : 'false' }}"
+          id="{{ id }}-title-{{ index }}"
+          aria-controls="{{ id }}-body-{{ index }}">
+    {% block title %}
+      {{ item.title | raw }}
+    {% endblock %}
+  </button>
+  <div class="{{ classlist.body }}" role="region"
+       id="{{ id }}-body-{{ index }}"
+       aria-labelledby="{{ id }}-title-{{ index }}" {{ item.show ? '' : 'hidden' }}>
+    <div class="{{ classlist.content }}">
+      {% block body %}
+        {{ item.body | raw }}
+      {% endblock %}
+    </div>
+  </div>
+</li>
