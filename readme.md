@@ -30,7 +30,7 @@ And use the provided `twig` template:
 {% include '@wide::modulus-accordion' with {
   id: 'accordion-1',
   items: [{
-    title: 'Title 1'
+    title: 'Title 1',
     body: 'Body 1'
   }]
 } %}
