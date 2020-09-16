@@ -1,4 +1,4 @@
-import Component from '@wide/modulus/src/component'
+import Component from '@wide/modulus/lib/component'
 
 
 /**
