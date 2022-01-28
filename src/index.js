@@ -18,28 +18,36 @@ export default class Accordion extends Component {
      */
     this.questions = this.children('[aria-controls]')
 
-    // listen click for toggling
-    for(let i = 0; i < this.questions.length; i++) {
-      this.listenQuestion(this.questions[i])
+    // handler
+    this.handler = {
+      toggle: this.toggle.bind(this)
     }
+
+    // set events
+    this.setEvents()
   }
 
-
-  /** 
-   * Listen click event and toggle to related answer
-   * @param {HTMLElement} question 
+  /**
+   * Set events
+   * @param {Boolean} addEvent
    */
-  listenQuestion(question) {
-    question.addEventListener('click', e => this.toggle(question))
+  setEvents(addEvent = true) {
+    const method = addEvent ? 'addEventListener' : 'removeEventListener'
+
+    // listen click for toggling
+    for (const question of this.questions) {
+      question[method]('click', this.handler.toggle)
+    }
   }
 
 
   /**
    * Toggle both question and answer
-   * @param {HTMLElement} question 
+   * @param {HTMLElement} question
    * @return {Promise}
    */
-  toggle(question) {
+  toggle(e) {
+    const question = e.currentTarget
     const answer = this.getAnswer(question)
     return this.isClose(answer)
       ? this.open(question, answer)
@@ -49,7 +57,7 @@ export default class Accordion extends Component {
 
   /**
    * Get question's answer based on `aria-controls` attribute
-   * @param {HTMLELement} question 
+   * @param {HTMLELement} question
    * @return {HTMLElement}
    */
   getAnswer(question) {
@@ -60,8 +68,8 @@ export default class Accordion extends Component {
 
   /**
    * Check close state of a specific question
-   * @param {HTMLElement} question 
-   * @param {HTMLElement} answer 
+   * @param {HTMLElement} question
+   * @param {HTMLElement} answer
    * @return {Bool}
    */
   isClose(answer) {
@@ -71,8 +79,8 @@ export default class Accordion extends Component {
 
   /**
    * Open specific question and answer
-   * @param {HTMLElement} question 
-   * @param {HTMLElement} answer 
+   * @param {HTMLElement} question
+   * @param {HTMLElement} answer
    * @return {Promise}
    */
   open(question, answer) {
@@ -84,7 +92,7 @@ export default class Accordion extends Component {
 
   /**
    * Slide down answer
-   * @param {HTMLElement} el 
+   * @param {HTMLElement} el
    * @return {Promise}
    */
   slideDown(el) {
@@ -94,8 +102,8 @@ export default class Accordion extends Component {
 
   /**
    * Close specific question and answer
-   * @param {HTMLElement} question 
-   * @param {HTMLElement} answer 
+   * @param {HTMLElement} question
+   * @param {HTMLElement} answer
    * @return {Promise}
    */
   close(question, answer) {
@@ -106,11 +114,18 @@ export default class Accordion extends Component {
 
   /**
    * Slide down answer
-   * @param {HTMLElement} el 
+   * @param {HTMLElement} el
    * @return {Promise}
    */
   slideUp(el) {
     return Promise.resolve()
   }
 
+
+  /**
+   * Clear component
+   */
+  destroy() {
+    this.setEvents(false)
+  }
 }
