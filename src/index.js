@@ -43,7 +43,7 @@ export default class Accordion extends Component {
 
   /**
    * Toggle both question and answer
-   * @param {HTMLElement} question
+   * @param {Event} e
    * @return {Promise}
    */
   toggle(e) {
